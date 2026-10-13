@@ -1,0 +1,6 @@
+@WARP.OpenShotParser.Web_HostAddress = http://localhost:5002
+
+GET {{WARP.OpenShotParser.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

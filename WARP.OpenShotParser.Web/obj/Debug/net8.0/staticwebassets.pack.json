@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\namthip411\\code_project_namthip\\WARP.OpenShotParser.Web\\wwwroot\\Test1_ for_app.mp4",
+      "PackagePath": "staticwebassets\\Test1_ for_app.mp4"
+    },
+    {
+      "Id": "C:\\Users\\namthip411\\code_project_namthip\\WARP.OpenShotParser.Web\\wwwroot\\Test2_for_app.mp4",
+      "PackagePath": "staticwebassets\\Test2_for_app.mp4"
+    },
+    {
+      "Id": "C:\\Users\\namthip411\\code_project_namthip\\WARP.OpenShotParser.Web\\wwwroot\\Test3_for_app.mp4",
+      "PackagePath": "staticwebassets\\Test3_for_app.mp4"
+    },
+    {
+      "Id": "C:\\Users\\namthip411\\code_project_namthip\\WARP.OpenShotParser.Web\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\namthip411\\code_project_namthip\\WARP.OpenShotParser.Web\\wwwroot\\login.html",
+      "PackagePath": "staticwebassets\\login.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.WARP.OpenShotParser.Web.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.WARP.OpenShotParser.Web.props",
+      "PackagePath": "build\\WARP.OpenShotParser.Web.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.WARP.OpenShotParser.Web.props",
+      "PackagePath": "buildMultiTargeting\\WARP.OpenShotParser.Web.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.WARP.OpenShotParser.Web.props",
+      "PackagePath": "buildTransitive\\WARP.OpenShotParser.Web.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

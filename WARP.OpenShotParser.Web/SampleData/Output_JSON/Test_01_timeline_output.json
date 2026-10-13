@@ -1,0 +1,181 @@
+{
+  "metadata": {
+    "projectName": "Test_01_for_App",
+    "fps": 30,
+    "totalDurationSec": 150.767,
+    "totalEvents": 10,
+    "generatedAt": "2026-10-03T16:17:38.9980953Z"
+  },
+  "events": [
+    {
+      "id": "YM0D3ZUIGT",
+      "name": "IMG_2636.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 0,
+      "endSec": 31.333,
+      "durationSec": 31.333,
+      "startMs": 0,
+      "endMs": 31333,
+      "durationMs": 31333,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2636.MOV",
+        "fileId": "Q8WHW6NPPW"
+      }
+    },
+    {
+      "id": "AN2WJO8U3T",
+      "name": "IMG_2636.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 31.333,
+      "endSec": 63.733,
+      "durationSec": 32.4,
+      "startMs": 31333,
+      "endMs": 63733,
+      "durationMs": 32400,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2636.MOV",
+        "fileId": "Q8WHW6NPPW"
+      }
+    },
+    {
+      "id": "12HIVB5GF0",
+      "name": "wipe_left_to_right.svg",
+      "type": "transition",
+      "layer": 5000000,
+      "startSec": 63.9,
+      "endSec": 73.9,
+      "durationSec": 10,
+      "startMs": 63900,
+      "endMs": 73900,
+      "durationMs": 10000,
+      "action": "TRIGGER_TRANSITION",
+      "payload": {
+        "effectType": "wipe_left_to_right",
+        "path": "@transitions/common/wipe_left_to_right.svg"
+      }
+    },
+    {
+      "id": "BCM9Y8SS6N",
+      "name": "IMG_2872.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 73.967,
+      "endSec": 89.234,
+      "durationSec": 15.267,
+      "startMs": 73967,
+      "endMs": 89234,
+      "durationMs": 15267,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2872.MOV",
+        "fileId": "JTQ3W1F0S1"
+      }
+    },
+    {
+      "id": "Q36LT5UYO2",
+      "name": "circle_in_to_out.svg",
+      "type": "transition",
+      "layer": 5000000,
+      "startSec": 89.267,
+      "endSec": 99.267,
+      "durationSec": 10,
+      "startMs": 89267,
+      "endMs": 99267,
+      "durationMs": 10000,
+      "action": "TRIGGER_TRANSITION",
+      "payload": {
+        "effectType": "circle_in_to_out",
+        "path": "@transitions/common/circle_in_to_out.svg"
+      }
+    },
+    {
+      "id": "TG812CWPCA",
+      "name": "IMG_2929.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 99.333,
+      "endSec": 103.866,
+      "durationSec": 4.533,
+      "startMs": 99333,
+      "endMs": 103866,
+      "durationMs": 4533,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2929.MOV",
+        "fileId": "R9GL2BZUQO"
+      }
+    },
+    {
+      "id": "AOPL2N7OVQ",
+      "name": "fade.svg",
+      "type": "transition",
+      "layer": 5000000,
+      "startSec": 104,
+      "endSec": 113.9,
+      "durationSec": 9.9,
+      "startMs": 104000,
+      "endMs": 113900,
+      "durationMs": 9900,
+      "action": "TRIGGER_TRANSITION",
+      "payload": {
+        "effectType": "fade",
+        "path": "@transitions/common/fade.svg"
+      }
+    },
+    {
+      "id": "EEQXFJ64FD",
+      "name": "IMG_2876.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 114.1,
+      "endSec": 123.967,
+      "durationSec": 9.867,
+      "startMs": 114100,
+      "endMs": 123967,
+      "durationMs": 9867,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2876.MOV",
+        "fileId": "MA0LMGKTAB"
+      }
+    },
+    {
+      "id": "73TCCQ01RA",
+      "name": "circle_out_to_in.svg",
+      "type": "transition",
+      "layer": 5000000,
+      "startSec": 124.1,
+      "endSec": 134.1,
+      "durationSec": 10,
+      "startMs": 124100,
+      "endMs": 134100,
+      "durationMs": 10000,
+      "action": "TRIGGER_TRANSITION",
+      "payload": {
+        "effectType": "circle_out_to_in",
+        "path": "@transitions/common/circle_out_to_in.svg"
+      }
+    },
+    {
+      "id": "78QYZD1SK1",
+      "name": "IMG_2878.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 134.1,
+      "endSec": 150.767,
+      "durationSec": 16.667,
+      "startMs": 134100,
+      "endMs": 150767,
+      "durationMs": 16667,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2878.MOV",
+        "fileId": "FVDFGGHTLF"
+      }
+    }
+  ]
+}

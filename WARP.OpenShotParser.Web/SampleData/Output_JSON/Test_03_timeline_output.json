@@ -1,0 +1,280 @@
+{
+  "metadata": {
+    "projectName": "Test_03_for_App",
+    "fps": 30,
+    "totalDurationSec": 236.514,
+    "totalEvents": 12,
+    "generatedAt": "2026-10-03T16:17:39.0051797Z"
+  },
+  "events": [
+    {
+      "id": "W9KUR9REOG",
+      "name": "IMG_2971.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 0,
+      "endSec": 12.4,
+      "durationSec": 12.4,
+      "startMs": 0,
+      "endMs": 12400,
+      "durationMs": 12400,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2971.MOV",
+        "fileId": "Z24CJCUI1K"
+      }
+    },
+    {
+      "id": "4I6EEBX8ZP",
+      "name": "barr_ripple_4.jpg",
+      "type": "transition",
+      "layer": 5000000,
+      "startSec": 12.3,
+      "endSec": 22.3,
+      "durationSec": 10,
+      "startMs": 12300,
+      "endMs": 22300,
+      "durationMs": 10000,
+      "action": "TRIGGER_TRANSITION",
+      "payload": {
+        "effectType": "barr_ripple_4",
+        "path": "@transitions/extra/barr_ripple_4.jpg"
+      },
+      "question": "\u0E04\u0E33\u0E16\u0E32\u0E21\u0E2A\u0E33\u0E2B\u0E23\u0E31\u0E1A\u0E40\u0E2B\u0E15\u0E38\u0E01\u0E32\u0E23\u0E13\u0E4C \u0022barr_ripple_4.jpg\u0022: \u0E04\u0E38\u0E13\u0E15\u0E49\u0E2D\u0E07\u0E01\u0E32\u0E23\u0E14\u0E33\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E44\u0E23?",
+      "options": {
+        "a": {
+          "text": "\u0E44\u0E1B\u0E15\u0E48\u0E2D (Continue)",
+          "signal": "SIG_FORWARD_GREEN",
+          "action": "CONTINUE"
+        },
+        "b": {
+          "text": "\u0E22\u0E49\u0E2D\u0E19\u0E01\u0E25\u0E31\u0E1A (Replay)",
+          "signal": "SIG_BACKWARD_RED",
+          "action": "REPLAY"
+        }
+      }
+    },
+    {
+      "id": "IIGGK17WRS",
+      "name": "IMG_2935.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 22.447,
+      "endSec": 45.114,
+      "durationSec": 22.667,
+      "startMs": 22447,
+      "endMs": 45114,
+      "durationMs": 22667,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2935.MOV",
+        "fileId": "PY0GK5NJLG"
+      }
+    },
+    {
+      "id": "UA75USFT8Q",
+      "name": "wipe_top_to_bottom.svg",
+      "type": "transition",
+      "layer": 5000000,
+      "startSec": 45.133,
+      "endSec": 55.133,
+      "durationSec": 10,
+      "startMs": 45133,
+      "endMs": 55133,
+      "durationMs": 10000,
+      "action": "TRIGGER_TRANSITION",
+      "payload": {
+        "effectType": "wipe_top_to_bottom",
+        "path": "@transitions/common/wipe_top_to_bottom.svg"
+      },
+      "question": "\u0E40\u0E2A\u0E37\u0E49\u0E2D\u0E21\u0E48\u0E27\u0E07\u0E1E\u0E39\u0E14\u0E27\u0E48\u0E32\u0E2D\u0E30\u0E44\u0E23",
+      "options": {
+        "a": {
+          "text": "\u0E2A\u0E27\u0E31\u0E2A\u0E14\u0E35\u0E04\u0E23\u0E31\u0E1A\u0E1E\u0E1A\u0E01\u0E31\u0E1A\u0E23\u0E32\u0E22\u0E01\u0E32\u0E23\u0E2A\u0E14",
+          "signal": "SIG_FORWARD_GREEN",
+          "action": "CONTINUE"
+        },
+        "b": {
+          "text": "\u0E2A\u0E27\u0E31\u0E2A\u0E14\u0E35\u0E04\u0E23\u0E31\u0E1A\u0E27\u0E31\u0E19\u0E19\u0E35\u0E49\u0E19\u0E49\u0E33\u0E17\u0E48\u0E27\u0E21",
+          "signal": "SIG_BACKWARD_RED",
+          "action": "REPLAY"
+        }
+      }
+    },
+    {
+      "id": "TYIDOENCQV",
+      "name": "IMG_2811.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 55.13,
+      "endSec": 61.03,
+      "durationSec": 5.9,
+      "startMs": 55130,
+      "endMs": 61030,
+      "durationMs": 5900,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2811.MOV",
+        "fileId": "V1E5X5Z6HN"
+      }
+    },
+    {
+      "id": "D5FM92SQD7",
+      "name": "IMG_2636.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 60.923,
+      "endSec": 99.6,
+      "durationSec": 38.677,
+      "startMs": 60923,
+      "endMs": 99600,
+      "durationMs": 38677,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2636.MOV",
+        "fileId": "F3W3JMP0G4"
+      }
+    },
+    {
+      "id": "5HLJZ2GJR5",
+      "name": "fade.svg",
+      "type": "transition",
+      "layer": 5000000,
+      "startSec": 99.733,
+      "endSec": 109.733,
+      "durationSec": 10,
+      "startMs": 99733,
+      "endMs": 109733,
+      "durationMs": 10000,
+      "action": "TRIGGER_TRANSITION",
+      "payload": {
+        "effectType": "fade",
+        "path": "@transitions/common/fade.svg"
+      },
+      "question": "\u0E04\u0E33\u0E16\u0E32\u0E21\u0E2A\u0E33\u0E2B\u0E23\u0E31\u0E1A\u0E40\u0E2B\u0E15\u0E38\u0E01\u0E32\u0E23\u0E13\u0E4C \u0022fade.svg\u0022: \u0E04\u0E38\u0E13\u0E15\u0E49\u0E2D\u0E07\u0E01\u0E32\u0E23\u0E14\u0E33\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E44\u0E23?",
+      "options": {
+        "a": {
+          "text": "\u0E44\u0E1B\u0E15\u0E48\u0E2D (Continue)",
+          "signal": "SIG_FORWARD_GREEN",
+          "action": "CONTINUE"
+        },
+        "b": {
+          "text": "\u0E22\u0E49\u0E2D\u0E19\u0E01\u0E25\u0E31\u0E1A (Replay)",
+          "signal": "SIG_BACKWARD_RED",
+          "action": "REPLAY"
+        }
+      }
+    },
+    {
+      "id": "6Z4Y0Z7Z05",
+      "name": "IMG_2636.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 109.8,
+      "endSec": 134.856,
+      "durationSec": 25.056,
+      "startMs": 109800,
+      "endMs": 134856,
+      "durationMs": 25056,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2636.MOV",
+        "fileId": "F3W3JMP0G4"
+      }
+    },
+    {
+      "id": "5QVW3QSDR8",
+      "name": "wave_left_up.jpg",
+      "type": "transition",
+      "layer": 5000000,
+      "startSec": 134.867,
+      "endSec": 144.867,
+      "durationSec": 10,
+      "startMs": 134867,
+      "endMs": 144867,
+      "durationMs": 10000,
+      "action": "TRIGGER_TRANSITION",
+      "payload": {
+        "effectType": "wave_left_up",
+        "path": "@transitions/extra/wave_left_up.jpg"
+      },
+      "question": "\u0E04\u0E33\u0E16\u0E32\u0E21\u0E2A\u0E33\u0E2B\u0E23\u0E31\u0E1A\u0E40\u0E2B\u0E15\u0E38\u0E01\u0E32\u0E23\u0E13\u0E4C \u0022wave_left_up.jpg\u0022: \u0E04\u0E38\u0E13\u0E15\u0E49\u0E2D\u0E07\u0E01\u0E32\u0E23\u0E14\u0E33\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E44\u0E23?",
+      "options": {
+        "a": {
+          "text": "\u0E44\u0E1B\u0E15\u0E48\u0E2D (Continue)",
+          "signal": "SIG_FORWARD_GREEN",
+          "action": "CONTINUE"
+        },
+        "b": {
+          "text": "\u0E22\u0E49\u0E2D\u0E19\u0E01\u0E25\u0E31\u0E1A (Replay)",
+          "signal": "SIG_BACKWARD_RED",
+          "action": "REPLAY"
+        }
+      }
+    },
+    {
+      "id": "8FE5I7KEP7",
+      "name": "IMG_2932.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 144.947,
+      "endSec": 184.067,
+      "durationSec": 39.12,
+      "startMs": 144947,
+      "endMs": 184067,
+      "durationMs": 39120,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2932.MOV",
+        "fileId": "W624ZCS03G"
+      }
+    },
+    {
+      "id": "9YLQ3RIPC9",
+      "name": "wipe_diagonal_3.jpg",
+      "type": "transition",
+      "layer": 5000000,
+      "startSec": 184.1,
+      "endSec": 194.1,
+      "durationSec": 10,
+      "startMs": 184100,
+      "endMs": 194100,
+      "durationMs": 10000,
+      "action": "TRIGGER_TRANSITION",
+      "payload": {
+        "effectType": "wipe_diagonal_3",
+        "path": "@transitions/extra/wipe_diagonal_3.jpg"
+      },
+      "question": "\u0E04\u0E33\u0E16\u0E32\u0E21\u0E2A\u0E33\u0E2B\u0E23\u0E31\u0E1A\u0E40\u0E2B\u0E15\u0E38\u0E01\u0E32\u0E23\u0E13\u0E4C \u0022wipe_diagonal_3.jpg\u0022: \u0E04\u0E38\u0E13\u0E15\u0E49\u0E2D\u0E07\u0E01\u0E32\u0E23\u0E14\u0E33\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E44\u0E23?",
+      "options": {
+        "a": {
+          "text": "\u0E44\u0E1B\u0E15\u0E48\u0E2D (Continue)",
+          "signal": "SIG_FORWARD_GREEN",
+          "action": "CONTINUE"
+        },
+        "b": {
+          "text": "\u0E22\u0E49\u0E2D\u0E19\u0E01\u0E25\u0E31\u0E1A (Replay)",
+          "signal": "SIG_BACKWARD_RED",
+          "action": "REPLAY"
+        }
+      }
+    },
+    {
+      "id": "MUTCL3HQMJ",
+      "name": "IMG_2932.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 193.967,
+      "endSec": 236.514,
+      "durationSec": 42.547,
+      "startMs": 193967,
+      "endMs": 236514,
+      "durationMs": 42547,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2932.MOV",
+        "fileId": "W624ZCS03G"
+      }
+    }
+  ]
+}

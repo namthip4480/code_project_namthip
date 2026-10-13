@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\WARP.OpenShotParser.Web.props" />
+</Project>

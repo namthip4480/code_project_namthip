@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WARP Lesson Creator - ระบบออกแบบบทเรียนโต้ตอบ</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --accent-blue: #2563eb;
+            --accent-purple: #3c00a3;
+            --accent-emerald: #028058;
+            --accent-rose: #e11d48;
+            --accent-amber: #d97706;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Prompt', sans-serif; }
+        
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .brand-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-title i {
+            font-size: 2rem;
+            color: var(--accent-purple);
+        }
+
+        .brand-title h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .creator-tag {
+            background: #f3e8ff;
+            color: var(--accent-purple);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 9px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: #f1f5f9;
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--accent-emerald);
+            color: white;
+            border-color: var(--accent-emerald);
+        }
+
+        .btn-success:hover {
+            background: #047857;
+        }
+
+        .btn-purple {
+            background: var(--accent-purple);
+            color: white;
+            border-color: var(--accent-purple);
+        }
+
+        .btn-purple:hover {
+            background: #6d28d9;
+        }
+
+        /* Grid Layout */
+        .creator-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1.1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .creator-grid { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Player Container */
+        .player-wrapper {
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 16 / 9;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Interactive Timeline Scrubber Bar */
+        .timeline-bar-container {
+            margin-top: 14px;
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .timeline-track {
+            position: relative;
+            height: 16px;
+            background: #cbd5e1;
+            border-radius: 8px;
+            cursor: pointer;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .timeline-progress {
+            position: absolute;
+            height: 100%;
+            background: var(--accent-blue);
+            width: 0%;
+            left: 0;
+            top: 0;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 6px;
+            background: var(--accent-amber);
+            box-shadow: 0 0 6px rgba(217, 119, 6, 0.8);
+            cursor: pointer;
+            z-index: 5;
+        }
+
+        .timeline-marker.active {
+            background: var(--accent-rose);
+            width: 8px;
+            box-shadow: 0 0 10px var(--accent-rose);
+        }
+
+        /* Form Configuration Styling */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .option-box {
+            background: #f8fafc;
+            border: 1px dashed var(--border-color);
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .option-box-title {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--accent-purple);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Transition List */
+        .transition-list {
+            max-height: 220px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .transition-item {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .transition-item:last-child { border-bottom: none; }
+
+        .transition-item:hover, .transition-item.selected {
+            background: #f3e8ff;
+            border-left: 4px solid var(--accent-purple);
+        }
+
+        .badge {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-warning { background: #fef3c7; color: var(--accent-amber); }
+        .badge-success { background: #d1fae5; color: var(--accent-emerald); }
+
+        /* Student Preview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999; opacity: 0; pointer-events: none; transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+
+        .modal-card {
+            background: #ffffff;
+            border-radius: 16px;
+            width: 90%; max-width: 520px;
+            padding: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        .modal-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; color: var(--accent-purple); }
+        .modal-header h3 { font-size: 1.2rem; font-weight: 700; color: var(--text-main); }
+        .question-preview { background: #f1f5f9; padding: 14px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; margin-bottom: 20px; }
+        .modal-actions { display: flex; flex-direction: column; gap: 10px; }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="brand-title">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <div>
+                <h1>WARP Lesson Creator</h1>
+                <span class="creator-tag">Creator Phase (โหมดครูผู้สร้างบทเรียน)</span>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn" onclick="loadLessonData('Test_01_timeline_output')"><i class="fa-solid fa-folder-open"></i> โหลด Test 01</button>
+            <button class="btn" onclick="loadLessonData('Test_02_timeline_output')"><i class="fa-solid fa-folder-open"></i> โหลด Test 02</button>
+            <button class="btn" onclick="loadLessonData('Test_03_timeline_output')"><i class="fa-solid fa-folder-open"></i> โหลด Test 03</button>
+            <button class="btn btn-purple" onclick="togglePreview()"><i class="fa-solid fa-eye"></i> ทดลองเล่น (Preview)</button>
+            <button class="btn btn-success" onclick="saveAndExportPackage()"><i class="fa-solid fa-file-export"></i> บันทึกและส่งออกแพ็กเกจ JSON</button>
+        </div>
+    </header>
+
+    <!-- Main Grid -->
+    <div class="creator-grid">
+        <!-- Left: Video & Timeline Scrubber -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fa-solid fa-film"></i> ตัวพรีวิววิดีโอ & ตำแหน่งจุดทรานซิชัน</h2>
+                <span id="video-name-tag" style="font-size:0.82rem; color:var(--text-muted);">ไม่ได้เลือกวิดีโอ</span>
+            </div>
+
+            <div class="player-wrapper">
+                <video id="media-player" controls>
+                    <source id="video-source" src="" type="video/mp4">
+                    เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ
+                </video>
+            </div>
+
+            <!-- Scrubber Bar -->
+            <div class="timeline-bar-container">
+                <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:600;">
+                    <span>เวลาปัจจุบัน: <strong id="time-display" style="color:var(--accent-blue);">00:00.000</strong></span>
+                    <span>จุดทรานซิชันทั้งหมด: <strong id="trans-count" style="color:var(--accent-purple);">0</strong> จุด</span>
+                </div>
+                <div class="timeline-track" id="timeline-track" onclick="seekVideo(event)">
+                    <div class="timeline-progress" id="timeline-progress"></div>
+                    <div id="markers-container"></div>
+                </div>
+            </div>
+
+            <!-- List of Transitions Found -->
+            <div style="margin-top: 16px;">
+                <label style="font-size:0.88rem; font-weight:600; margin-bottom:8px; display:block;">รายการจุดตัด (Transition Events) ที่พบในไฟล์:</label>
+                <div class="transition-list" id="transition-list">
+                    <div style="text-align:center; padding:20px; color:var(--text-muted); font-size:0.88rem;">กรุณากดเลือกไฟล์ Test ด้านบนเพื่อเริ่มกำหนดคำถาม</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Configurator Form -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fa-solid fa-pen-to-square"></i> ตั้งโจทย์คำถาม & สัญญาณ ESP32</h2>
+                <span id="selected-trans-tag" class="badge badge-warning">ยังไม่ได้เลือกจุดตัด</span>
+            </div>
+
+            <form id="config-form" onsubmit="saveTransitionConfig(event)">
+                <div class="form-group">
+                    <label>ชื่อเหตุการณ์ / ไฟล์ทรานซิชัน:</label>
+                    <input type="text" id="event-name" class="form-control" readonly style="background:#f1f5f9;">
+                </div>
+
+                <div class="form-group">
+                    <label>เวลาที่เริ่ม - สิ้นสุด (วินาที):</label>
+                    <div style="display:flex; gap:10px;">
+                        <input type="text" id="start-sec" class="form-control" readonly style="background:#f1f5f9;">
+                        <input type="text" id="end-sec" class="form-control" readonly style="background:#f1f5f9;">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label style="color:var(--accent-blue);">โจทย์คำถามที่จะแสดงให้นักเรียนตอบ:</label>
+                    <textarea id="question-text" class="form-control" placeholder="เช่น คุณต้องการจะเดินหน้าต่อหรือย้อนกลับไปตั้งหลัก?" required></textarea>
+                </div>
+
+                <!-- Option A Config -->
+                <div class="option-box">
+                    <div class="option-box-title"><i class="fa-solid fa-circle-check"></i> ตัวเลือกที่ 1 (ทางเลือก A)</div>
+                    <div class="form-group">
+                        <label>ข้อความปุ่มตอบ:</label>
+                        <input type="text" id="opt-a-text" class="form-control" value="ไปต่อ (Continue)" required>
+                    </div>
+                    <div class="form-group">
+                        <label>รหัสสัญญาณไฟยิงไป ESP32 (Payload):</label>
+                        <input type="text" id="opt-a-signal" class="form-control" value="SIG_FORWARD_GREEN" required>
+                    </div>
+                </div>
+
+                <!-- Option B Config -->
+                <div class="option-box">
+                    <div class="option-box-title"><i class="fa-solid fa-circle-xmark"></i> ตัวเลือกที่ 2 (ทางเลือก B)</div>
+                    <div class="form-group">
+                        <label>ข้อความปุ่มตอบ:</label>
+                        <input type="text" id="opt-b-text" class="form-control" value="ย้อนกลับ (Replay)" required>
+                    </div>
+                    <div class="form-group">
+                        <label>รหัสสัญญาณไฟยิงไป ESP32 (Payload):</label>
+                        <input type="text" id="opt-b-signal" class="form-control" value="SIG_BACKWARD_RED" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; padding:12px; font-weight:600;">
+                    <i class="fa-solid fa-floppy-disk"></i> บันทึกโจทย์คำถามจุดนี้
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Student Preview Interactive Modal -->
+    <div id="preview-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <i class="fa-solid fa-graduation-cap fa-xl"></i>
+                <h3>ตัวอย่างมุมมองนักเรียน (Student Player Preview)</h3>
+            </div>
+            <div class="question-preview" id="preview-question">
+                คำถามจะแสดงที่นี่เมื่อวิดีโอเล่นมาถึงจุด Transition...
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="preview-btn-a" onclick="handlePreviewChoice('A')">Option A</button>
+                <button class="btn btn-rose" id="preview-btn-b" onclick="handlePreviewChoice('B')">Option B</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLessonData = null;
+        let selectedTransitionIndex = -1;
+        let isPreviewMode = false;
+        let currentFileName = "";
+
+        const mediaPlayer = document.getElementById('media-player');
+        const timeDisplay = document.getElementById('time-display');
+        const timelineProgress = document.getElementById('timeline-progress');
+        const markersContainer = document.getElementById('markers-container');
+
+        // 1. โหลดข้อมูลวิดีโอและไทม์ไลน์
+        async function loadLessonData(fileName) {
+            try {
+                currentFileName = fileName;
+                const response = await fetch(`/api/timeline/${fileName}`);
+                if (!response.ok) throw new Error("ไม่สามารถอ่านไฟล์ API ไทม์ไลน์ได้");
+
+                currentLessonData = await response.json();
+                
+                // Map ชื่อไฟล์ MP4
+                let videoName = fileName.replace('_timeline_output', '_for_app').replace('_0', '');
+                if (!videoName.endsWith('.mp4')) videoName += '.mp4';
+
+                mediaPlayer.src = `/${videoName}`;
+                mediaPlayer.load();
+                document.getElementById('video-name-tag').innerText = videoName;
+
+                // กรองเฉพาะ Event ที่เป็น Transition
+                initTransitionList();
+                renderMarkers();
+
+            } catch (err) {
+                alert("เกิดข้อผิดพลาด: " + err.message);
+            }
+        }
+
+        // 2. แสดงรายการ Transition ในแบบฟอร์ม
+        function initTransitionList() {
+            const listContainer = document.getElementById('transition-list');
+            const transitions = currentLessonData.events.filter(e => e.action === 'TRIGGER_TRANSITION' || e.type === 'transition');
+            
+            document.getElementById('trans-count').innerText = transitions.length;
+
+            if (transitions.length === 0) {
+                listContainer.innerHTML = '<div style="padding:16px; text-align:center; color:var(--text-muted);">ไม่พบจุดตัด Transition ในไฟล์นี้</div>';
+                return;
+            }
+
+            listContainer.innerHTML = transitions.map((evt, idx) => {
+                const isConfigured = evt.question !== undefined && evt.question !== "";
+                return `
+                    <div class="transition-item" id="trans-item-${idx}" onclick="selectTransition(${evt.id})">
+                        <div>
+                            <strong style="font-size:0.9rem;">${evt.name}</strong>
+                            <div style="font-size:0.78rem; color:var(--text-muted);">เวลา: ${evt.startSec.toFixed(1)}s - ${evt.endSec.toFixed(1)}s</div>
+                        </div>
+                        <span class="badge ${isConfigured ? 'badge-success' : 'badge-warning'}">
+                            ${isConfigured ? 'ตั้งคำถามแล้ว' : 'ยังไม่ตั้งคำถาม'}
+                        </span>
+                    </div>
+                `;
+            }).join('');
+
+            // เลือกจุดแรกอัตโนมัติ
+            if (transitions.length > 0) {
+                selectTransition(transitions[0].id);
+            }
+        }
+
+        // 3. วาดจุดมาร์กเกอร์บนแถบเวลา Scrubber
+        function renderMarkers() {
+            markersContainer.innerHTML = '';
+            const totalDuration = mediaPlayer.duration || currentLessonData.metadata.totalDurationSec || 100;
+
+            currentLessonData.events.forEach(evt => {
+                if (evt.action === 'TRIGGER_TRANSITION' || evt.type === 'transition') {
+                    const posPercent = (evt.startSec / totalDuration) * 100;
+                    const marker = document.createElement('div');
+                    marker.className = 'timeline-marker';
+                    marker.style.left = `${posPercent}%`;
+                    marker.title = `จุดตัด: ${evt.name} (${evt.startSec.toFixed(1)}s)`;
+                    marker.onclick = (e) => {
+                        e.stopPropagation();
+                        mediaPlayer.currentTime = evt.startSec;
+                        selectTransition(evt.id);
+                    };
+                    markersContainer.appendChild(marker);
+                }
+            });
+        }
+
+        // 4. เลือกจุดตัดเพื่อตั้งค่าในแบบฟอร์ม
+        function selectTransition(eventId) {
+            const evt = currentLessonData.events.find(e => e.id === eventId);
+            if (!evt) return;
+
+            selectedTransitionIndex = currentLessonData.events.findIndex(e => e.id === eventId);
+
+            document.getElementById('selected-trans-tag').className = 'badge badge-success';
+            document.getElementById('selected-trans-tag').innerText = `กำลังแก้ไขจุดที่ #${eventId}`;
+
+            document.getElementById('event-name').value = evt.name;
+            document.getElementById('start-sec').value = `${evt.startSec.toFixed(2)} วินาที`;
+            document.getElementById('end-sec').value = `${evt.endSec.toFixed(2)} วินาที`;
+
+            // ดึงค่าคำถามเดิม (ถ้ามี)
+            document.getElementById('question-text').value = evt.question || `คำถามสำหรับเหตุการณ์ "${evt.name}": คุณต้องการดำเนินการอย่างไร?`;
+            
+            const optA = evt.options ? evt.options.a : null;
+            const optB = evt.options ? evt.options.b : null;
+
+            document.getElementById('opt-a-text').value = optA ? optA.text : "ไปต่อ (Continue)";
+            document.getElementById('opt-a-signal').value = optA ? optA.signal : "SIG_FORWARD_GREEN";
+
+            document.getElementById('opt-b-text').value = optB ? optB.text : "ย้อนกลับ (Replay)";
+            document.getElementById('opt-b-signal').value = optB ? optB.signal : "SIG_BACKWARD_RED";
+
+            // สั่งเล่นวิดีโอไปยังตำแหน่งนั้น
+            mediaPlayer.currentTime = evt.startSec;
+        }
+
+        // 5. บันทึกคำถามลงในโครงสร้าง JSON ชั่วคราวในความจำ
+        function saveTransitionConfig(e) {
+            e.preventDefault();
+            if (selectedTransitionIndex === -1) return;
+
+            const evt = currentLessonData.events[selectedTransitionIndex];
+
+            evt.question = document.getElementById('question-text').value;
+            evt.options = {
+                a: {
+                    text: document.getElementById('opt-a-text').value,
+                    signal: document.getElementById('opt-a-signal').value,
+                    action: "CONTINUE"
+                },
+                b: {
+                    text: document.getElementById('opt-b-text').value,
+                    signal: document.getElementById('opt-b-signal').value,
+                    action: "REPLAY"
+                }
+            };
+
+            alert(`บันทึกโจทย์คำถามสำหรับ "${evt.name}" สำเร็จเรียบร้อยแล้ว!`);
+            initTransitionList();
+        }
+
+        // 6. บันทึกและส่งออกไฟล์แพ็กเกจบทเรียนลง DB/Storage
+        async function saveAndExportPackage() {
+            if (!currentLessonData) {
+                alert("กรุณาโหลดไฟล์บทเรียนก่อนครับ");
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/save-lesson', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        fileName: currentFileName,
+                        lessonData: currentLessonData
+                    })
+                });
+
+                if (response.ok) {
+                    alert("ส่งออกและบันทึกแพ็กเกจบทเรียนลงระบบเรียบร้อยแล้ว! พร้อมให้นักเรียนนำไปเล่นได้ทันที");
+                } else {
+                    throw new Error("เกิดข้อผิดพลาดในการบันทึก");
+                }
+            } catch (err) {
+                alert("ไม่สามารถบันทึกแพ็กเกจได้: " + err.message);
+            }
+        }
+
+        // Scrubber Event
+        function seekVideo(e) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const clickPos = (e.clientX - rect.left) / rect.width;
+            mediaPlayer.currentTime = clickPos * mediaPlayer.duration;
+        }
+
+        mediaPlayer.addEventListener('timeupdate', () => {
+            const currentTime = mediaPlayer.currentTime;
+            const duration = mediaPlayer.duration || 100;
+            
+            const mins = Math.floor(currentTime / 60).toString().padStart(2, '0');
+            const secs = (currentTime % 60).toFixed(3).padStart(6, '0');
+            timeDisplay.innerText = `${mins}:${secs}`;
+
+            timelineProgress.style.width = `${(currentTime / duration) * 100}%`;
+
+            // ตรวจจับจุด Transition กรณีเปิดโหมดทดลองเล่น (Preview)
+            if (isPreviewMode && currentLessonData) {
+                const activeEvt = currentLessonData.events.find(e => currentTime >= e.startSec && currentTime <= e.endSec && (e.action === 'TRIGGER_TRANSITION' || e.type === 'transition'));
+                if (activeEvt && !activeEvt._previewTriggered) {
+                    activeEvt._previewTriggered = true;
+                    showPreviewModal(activeEvt);
+                }
+            }
+        });
+
+        function togglePreview() {
+            isPreviewMode = !isPreviewMode;
+            if (currentLessonData) {
+                currentLessonData.events.forEach(e => e._previewTriggered = false);
+            }
+            if (isPreviewMode) {
+                alert("เริ่มโหมดจำลองการเล่นมุมมองนักเรียน! วิดีโอจะเด้งคำถามเมื่อถึงจุดทรานซิชัน");
+                mediaPlayer.currentTime = 0;
+                mediaPlayer.play();
+            } else {
+                alert("ออกจากโหมดจำลองการเล่น");
+            }
+        }
+
+        function showPreviewModal(evt) {
+            mediaPlayer.pause();
+            document.getElementById('preview-question').innerText = evt.question || `โจทย์คำถาม: ${evt.name}`;
+            
+            const optA = evt.options ? evt.options.a : { text: "ไปต่อ", signal: "SIG_A" };
+            const optB = evt.options ? evt.options.b : { text: "ย้อนกลับ", signal: "SIG_B" };
+
+            document.getElementById('preview-btn-a').innerText = `A: ${optA.text} [สัญญาณ: ${optA.signal}]`;
+            document.getElementById('preview-btn-b').innerText = `B: ${optB.text} [สัญญาณ: ${optB.signal}]`;
+
+            document.getElementById('preview-modal').classList.add('active');
+        }
+
+        function handlePreviewChoice(choice) {
+            document.getElementById('preview-modal').classList.remove('active');
+            mediaPlayer.play();
+        }
+    </script>
+</body>
+</html>

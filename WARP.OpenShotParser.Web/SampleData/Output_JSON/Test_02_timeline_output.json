@@ -1,0 +1,215 @@
+{
+  "metadata": {
+    "projectName": "Test_02_for_App",
+    "fps": 30,
+    "totalDurationSec": 173.828,
+    "totalEvents": 12,
+    "generatedAt": "2026-10-03T16:17:38.9763561Z"
+  },
+  "events": [
+    {
+      "id": "43WVDFDO4S",
+      "name": "IMG_2694.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 0,
+      "endSec": 9.5,
+      "durationSec": 9.5,
+      "startMs": 0,
+      "endMs": 9500,
+      "durationMs": 9500,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2694.MOV",
+        "fileId": "MIZHZ2T0SM"
+      }
+    },
+    {
+      "id": "X5NMRMZR20",
+      "name": "fade.svg",
+      "type": "transition",
+      "layer": 5000000,
+      "startSec": 9.6,
+      "endSec": 19.6,
+      "durationSec": 10,
+      "startMs": 9600,
+      "endMs": 19600,
+      "durationMs": 10000,
+      "action": "TRIGGER_TRANSITION",
+      "payload": {
+        "effectType": "fade",
+        "path": "@transitions/common/fade.svg"
+      }
+    },
+    {
+      "id": "PVDNKU3AW3",
+      "name": "IMG_2876.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 19.817,
+      "endSec": 29.684,
+      "durationSec": 9.867,
+      "startMs": 19817,
+      "endMs": 29684,
+      "durationMs": 9867,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2876.MOV",
+        "fileId": "YAGWEEB3M4"
+      }
+    },
+    {
+      "id": "LIUVOPCWAG",
+      "name": "IMG_2971.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 29.717,
+      "endSec": 42.117,
+      "durationSec": 12.4,
+      "startMs": 29717,
+      "endMs": 42117,
+      "durationMs": 12400,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2971.MOV",
+        "fileId": "ORDW6JP9BX"
+      }
+    },
+    {
+      "id": "77TBYUHRAE",
+      "name": "wipe_bottom_to_top.svg",
+      "type": "transition",
+      "layer": 5000000,
+      "startSec": 42.333,
+      "endSec": 52.333,
+      "durationSec": 10,
+      "startMs": 42333,
+      "endMs": 52333,
+      "durationMs": 10000,
+      "action": "TRIGGER_TRANSITION",
+      "payload": {
+        "effectType": "wipe_bottom_to_top",
+        "path": "@transitions/common/wipe_bottom_to_top.svg"
+      }
+    },
+    {
+      "id": "KCO4ZXDUZ3",
+      "name": "IMG_2883.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 52.245,
+      "endSec": 61.878,
+      "durationSec": 9.633,
+      "startMs": 52245,
+      "endMs": 61878,
+      "durationMs": 9633,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2883.MOV",
+        "fileId": "PQ7KL5PHPC"
+      }
+    },
+    {
+      "id": "VR4BX2NA5R",
+      "name": "IMG_2932.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 62.295,
+      "endSec": 88.934,
+      "durationSec": 26.639,
+      "startMs": 62295,
+      "endMs": 88934,
+      "durationMs": 26639,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2932.MOV",
+        "fileId": "MHP3L8WMVS"
+      }
+    },
+    {
+      "id": "ZQLRIO6YTC",
+      "name": "circle_in_to_out.svg",
+      "type": "transition",
+      "layer": 5000000,
+      "startSec": 89.2,
+      "endSec": 99.2,
+      "durationSec": 10,
+      "startMs": 89200,
+      "endMs": 99200,
+      "durationMs": 10000,
+      "action": "TRIGGER_TRANSITION",
+      "payload": {
+        "effectType": "circle_in_to_out",
+        "path": "@transitions/common/circle_in_to_out.svg"
+      }
+    },
+    {
+      "id": "IT5J1MFMEQ",
+      "name": "IMG_2932.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 99.133,
+      "endSec": 138.5,
+      "durationSec": 39.367,
+      "startMs": 99133,
+      "endMs": 138500,
+      "durationMs": 39367,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2932.MOV",
+        "fileId": "MHP3L8WMVS"
+      }
+    },
+    {
+      "id": "58Q7BZI6IT",
+      "name": "4_squares_right_barr.jpg",
+      "type": "transition",
+      "layer": 5000000,
+      "startSec": 138.533,
+      "endSec": 148.533,
+      "durationSec": 10,
+      "startMs": 138533,
+      "endMs": 148533,
+      "durationMs": 10000,
+      "action": "TRIGGER_TRANSITION",
+      "payload": {
+        "effectType": "4_squares_right_barr",
+        "path": "@transitions/extra/4_squares_right_barr.jpg"
+      }
+    },
+    {
+      "id": "KRAJHWARAR",
+      "name": "IMG_2973.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 148.428,
+      "endSec": 158.061,
+      "durationSec": 9.633,
+      "startMs": 148428,
+      "endMs": 158061,
+      "durationMs": 9633,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2973.MOV",
+        "fileId": "H5RGCRLSEP"
+      }
+    },
+    {
+      "id": "PYMGL9MCBR",
+      "name": "IMG_2932.MOV",
+      "type": "clip",
+      "layer": 5000000,
+      "startSec": 158.167,
+      "endSec": 173.828,
+      "durationSec": 15.661,
+      "startMs": 158167,
+      "endMs": 173828,
+      "durationMs": 15661,
+      "action": "PLAY_MEDIA",
+      "payload": {
+        "mediaPath": "../Downloads/IMG_2932.MOV",
+        "fileId": "MHP3L8WMVS"
+      }
+    }
+  ]
+}

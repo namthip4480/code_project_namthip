@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\WARP.OpenShotParser.Web.props" />
+</Project>

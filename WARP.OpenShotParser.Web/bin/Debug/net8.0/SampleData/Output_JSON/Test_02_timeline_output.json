@@ -39,6 +39,19 @@
       "payload": {
         "effectType": "fade",
         "path": "@transitions/common/fade.svg"
+      },
+      "question": "\u0E04\u0E33\u0E16\u0E32\u0E21\u0E2A\u0E33\u0E2B\u0E23\u0E31\u0E1A\u0E40\u0E2B\u0E15\u0E38\u0E01\u0E32\u0E23\u0E13\u0E4C \u0022fade.svg\u0022: \u0E04\u0E38\u0E13\u0E15\u0E49\u0E2D\u0E07\u0E01\u0E32\u0E23\u0E14\u0E33\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E44\u0E23?",
+      "options": {
+        "a": {
+          "text": "\u0E44\u0E1B\u0E15\u0E48\u0E2D (Continue)",
+          "signal": "SIG_FORWARD_GREEN",
+          "action": "CONTINUE"
+        },
+        "b": {
+          "text": "\u0E22\u0E49\u0E2D\u0E19\u0E01\u0E25\u0E31\u0E1A (Replay)",
+          "signal": "SIG_BACKWARD_RED",
+          "action": "REPLAY"
+        }
       }
     },
     {
@@ -90,6 +103,19 @@
       "payload": {
         "effectType": "wipe_bottom_to_top",
         "path": "@transitions/common/wipe_bottom_to_top.svg"
+      },
+      "question": "\u0E04\u0E33\u0E16\u0E32\u0E21\u0E2A\u0E33\u0E2B\u0E23\u0E31\u0E1A\u0E40\u0E2B\u0E15\u0E38\u0E01\u0E32\u0E23\u0E13\u0E4C \u0022wipe_bottom_to_top.svg\u0022: \u0E04\u0E38\u0E13\u0E15\u0E49\u0E2D\u0E07\u0E01\u0E32\u0E23\u0E14\u0E33\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E44\u0E23?",
+      "options": {
+        "a": {
+          "text": "\u0E44\u0E1B\u0E15\u0E48\u0E2D (Continue)",
+          "signal": "SIG_FORWARD_GREEN",
+          "action": "CONTINUE"
+        },
+        "b": {
+          "text": "\u0E22\u0E49\u0E2D\u0E19\u0E01\u0E25\u0E31\u0E1A (Replay)",
+          "signal": "SIG_BACKWARD_RED",
+          "action": "REPLAY"
+        }
       }
     },
     {
@@ -141,6 +167,19 @@
       "payload": {
         "effectType": "circle_in_to_out",
         "path": "@transitions/common/circle_in_to_out.svg"
+      },
+      "question": "\u0E04\u0E33\u0E16\u0E32\u0E21\u0E2A\u0E33\u0E2B\u0E23\u0E31\u0E1A\u0E40\u0E2B\u0E15\u0E38\u0E01\u0E32\u0E23\u0E13\u0E4C \u0022circle_in_to_out.svg\u0022: \u0E04\u0E38\u0E13\u0E15\u0E49\u0E2D\u0E07\u0E01\u0E32\u0E23\u0E14\u0E33\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E44\u0E23?",
+      "options": {
+        "a": {
+          "text": "\u0E44\u0E1B\u0E15\u0E48\u0E2D (Continue)",
+          "signal": "SIG_FORWARD_GREEN",
+          "action": "CONTINUE"
+        },
+        "b": {
+          "text": "\u0E22\u0E49\u0E2D\u0E19\u0E01\u0E25\u0E31\u0E1A (Replay)",
+          "signal": "SIG_BACKWARD_RED",
+          "action": "REPLAY"
+        }
       }
     },
     {
@@ -175,6 +214,19 @@
       "payload": {
         "effectType": "4_squares_right_barr",
         "path": "@transitions/extra/4_squares_right_barr.jpg"
+      },
+      "question": "\u0E04\u0E33\u0E16\u0E32\u0E21\u0E2A\u0E33\u0E2B\u0E23\u0E31\u0E1A\u0E40\u0E2B\u0E15\u0E38\u0E01\u0E32\u0E23\u0E13\u0E4C \u00224_squares_right_barr.jpg\u0022: \u0E04\u0E38\u0E13\u0E15\u0E49\u0E2D\u0E07\u0E01\u0E32\u0E23\u0E14\u0E33\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E44\u0E23?",
+      "options": {
+        "a": {
+          "text": "\u0E44\u0E1B\u0E15\u0E48\u0E2D (Continue)",
+          "signal": "SIG_FORWARD_GREEN",
+          "action": "CONTINUE"
+        },
+        "b": {
+          "text": "\u0E22\u0E49\u0E2D\u0E19\u0E01\u0E25\u0E31\u0E1A (Replay)",
+          "signal": "SIG_BACKWARD_RED",
+          "action": "REPLAY"
+        }
       }
     },
     {

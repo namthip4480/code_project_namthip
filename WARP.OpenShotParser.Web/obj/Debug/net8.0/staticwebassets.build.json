@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "340gWKp4U3Dw8XNz0Gt9sbyaC5AEmX1VZ7XOmoA8qWo=",
+  "Hash": "ogpPDrv7JewaF18zU1f4bVuPqGArIJmsND1r74+PKqw=",
   "Source": "WARP.OpenShotParser.Web",
   "BasePath": "_content/WARP.OpenShotParser.Web",
   "Mode": "Default",
@@ -16,6 +16,25 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\namthip411\\code_project_namthip\\WARP.OpenShotParser.Web\\wwwroot\\dashboard.html",
+      "SourceId": "WARP.OpenShotParser.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\namthip411\\code_project_namthip\\WARP.OpenShotParser.Web\\wwwroot\\",
+      "BasePath": "_content/WARP.OpenShotParser.Web",
+      "RelativePath": "dashboard.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\dashboard.html"
+    },
     {
       "Identity": "C:\\Users\\namthip411\\code_project_namthip\\WARP.OpenShotParser.Web\\wwwroot\\index.html",
       "SourceId": "WARP.OpenShotParser.Web",
@@ -53,6 +72,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\login.html"
+    },
+    {
+      "Identity": "C:\\Users\\namthip411\\code_project_namthip\\WARP.OpenShotParser.Web\\wwwroot\\player.html",
+      "SourceId": "WARP.OpenShotParser.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\namthip411\\code_project_namthip\\WARP.OpenShotParser.Web\\wwwroot\\",
+      "BasePath": "_content/WARP.OpenShotParser.Web",
+      "RelativePath": "player.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\player.html"
     },
     {
       "Identity": "C:\\Users\\namthip411\\code_project_namthip\\WARP.OpenShotParser.Web\\wwwroot\\Test1_ for_app.mp4",

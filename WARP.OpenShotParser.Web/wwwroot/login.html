@@ -3,223 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WARP - เข้าสู่ระบบ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>WARP System - เข้าสู่ระบบ / ลงทะเบียน</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-main: #f1f5f9;
+            --bg-main: #f8fafc;
             --bg-card: #ffffff;
-            --accent-blue: #2563eb;
-            --accent-rose: #e11d48;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --accent-purple: #6366f1;
+            --accent-purple-hover: #4f46e5;
+            --accent-purple-light: #eef2ff;
             --border-color: #e2e8f0;
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.05);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Prompt', sans-serif; }
+
         body {
+            width: 100vw; height: 100vh; height: 100dvh;
             background-color: var(--bg-main);
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-primary); padding: 1rem;
         }
 
         .login-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 36px 32px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            border-radius: 1rem;
+            width: 100%; max-width: 420px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            display: flex; flex-direction: column; gap: 1.25rem;
         }
 
-        .brand-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 28px;
-            text-align: center;
+        .brand-header { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+        .brand-icon { font-size: 2.5rem; color: var(--accent-purple); }
+        .brand-title { font-size: 1.4rem; font-weight: 700; color: var(--text-primary); }
+        .brand-subtitle { font-size: 0.85rem; color: var(--text-secondary); }
+
+        .role-selector {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+            background: #f1f5f9; padding: 4px; border-radius: 0.6rem;
         }
 
-        .brand-icon {
-            width: 52px;
-            height: 52px;
-            background: #dbeafe;
-            color: var(--accent-blue);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
+        .role-btn {
+            padding: 0.6rem; border: none; border-radius: 0.4rem;
+            font-size: 0.85rem; font-weight: 600; cursor: pointer;
+            background: transparent; color: var(--text-secondary);
+            transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 0.4rem;
         }
 
-        .brand-header h1 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .role-btn.active {
+            background: var(--bg-card); color: var(--accent-purple);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
-        .brand-header span {
-            font-size: 0.75rem;
-            background: #dbeafe;
-            color: var(--accent-blue);
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-weight: 600;
+        .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+        .form-label { font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); }
+        .form-control {
+            width: 100%; padding: 0.6rem 0.8rem;
+            border: 1px solid var(--border-color); border-radius: 0.5rem;
+            font-size: 0.88rem; outline: none; transition: border-color 0.2s;
         }
+        .form-control:focus { border-color: var(--accent-purple); }
 
-        .brand-header p { font-size: 0.88rem; color: var(--text-muted); }
-
-        .form-group { margin-bottom: 20px; }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 8px;
+        .btn-submit {
+            width: 100%; padding: 0.75rem;
+            background: var(--accent-purple); color: white;
+            border: none; border-radius: 0.5rem;
+            font-size: 0.95rem; font-weight: 600; cursor: pointer;
+            transition: background 0.2s; margin-top: 0.5rem;
         }
+        .btn-submit:hover { background: var(--accent-purple-hover); }
 
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .input-wrapper i {
-            position: absolute;
-            left: 14px;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .input-wrapper input {
-            width: 100%;
-            padding: 12px 14px 12px 42px;
-            background: #f8fafc;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 0.92rem;
-            color: var(--text-main);
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        .input-wrapper input:focus {
-            background: #ffffff;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .btn-login {
-            width: 100%;
-            background: var(--accent-blue);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-            margin-top: 8px;
-        }
-
-        .btn-login:hover { background: #1d4ed8; }
-
-        .error-badge {
-            background: #ffe4e6;
-            color: var(--accent-rose);
-            border: 1px solid #fecdd3;
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-top: 18px;
-            display: none;
-            align-items: center;
-            gap: 8px;
-            justify-content: center;
-        }
+        .notice-text { font-size: 0.75rem; color: var(--text-secondary); text-align: center; line-height: 1.4; }
     </style>
 </head>
 <body>
 
     <div class="login-card">
         <div class="brand-header">
-            <div class="brand-icon">
-                <i class="fa-solid fa-bolt-lightning"></i>
-            </div>
-            <h1>WARP Controller <span>ESP32 Ready</span></h1>
-            <p>เข้าสู่ระบบเพื่อใช้งานระบบควบคุมไทม์ไลน์</p>
+            <i class="fa-solid fa-circle-play brand-icon"></i>
+            <div class="brand-title">WARP Interactive Learning</div>
+            <div class="brand-subtitle" id="subtitle-text">เลือกประเภทผู้ใช้งานเพื่อเข้าสู่ระบบ</div>
         </div>
 
-        <form id="login-form" onsubmit="event.preventDefault(); doLogin();">
-            <div class="form-group">
-                <label for="username">ชื่อผู้ใช้งาน (Username)</label>
-                <div class="input-wrapper">
-                    <i class="fa-solid fa-user"></i>
-                    <input type="text" id="username" placeholder="กรอกชื่อผู้ใช้ (admin)" required>
+        <div class="role-selector">
+            <button type="button" class="role-btn active" id="btn-student" onclick="switchRole('student')">
+                <i class="fa-solid fa-user-graduate"></i> นักเรียน
+            </button>
+            <button type="button" class="role-btn" id="btn-teacher" onclick="switchRole('teacher')">
+                <i class="fa-solid fa-chalkboard-user"></i> ครูผู้สอน
+            </button>
+        </div>
+
+        <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+            <input type="hidden" id="selected-role" value="student">
+
+            <!-- ช่องกรอกของนักเรียน -->
+            <div id="student-fields">
+                <div class="form-group" style="margin-bottom: 0.75rem;">
+                    <label class="form-label">ชื่อ - นามสกุล (หรือเลขประจำตัว)</label>
+                    <input type="text" id="student-name" class="form-control" placeholder="ด.ช. สมชาย ใจดี" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 0.75rem;">
+                    <label class="form-label">ตั้งรหัสผ่านด้วยตนเอง</label>
+                    <input type="password" id="student-pass" class="form-control" placeholder="กำหนดรหัสผ่าน (อย่างน้อย 4 ตัว)" minlength="4" required>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="password">รหัสผ่าน (Password)</label>
-                <div class="input-wrapper">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="password" placeholder="กรอกรหัสผ่าน (1234)" required>
+            <!-- ช่องกรอกของครูผู้สอน -->
+            <div id="teacher-fields" style="display: none;">
+                <div class="form-group" style="margin-bottom: 0.75rem;">
+                    <label class="form-label">ชื่อผู้ใช้ / อีเมลครูผู้สอน</label>
+                    <input type="text" id="teacher-user" class="form-control" placeholder="admin / teacher">
+                </div>
+                <div class="form-group" style="margin-bottom: 0.75rem;">
+                    <label class="form-label">รหัสผ่าน</label>
+                    <input type="password" id="teacher-pass" class="form-control" placeholder="กรอกรหัสผ่าน">
                 </div>
             </div>
 
-            <button type="submit" class="btn-login">
-                <i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ
+            <button type="submit" class="btn-submit" id="submit-btn-text">
+                <i class="fa-solid fa-right-to-bracket"></i> ยืนยัน / เข้าใช้งานหน้า Player
             </button>
         </form>
 
-        <div id="error-badge" class="error-badge">
-            <i class="fa-solid fa-circle-exclamation"></i>
-            <span>ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</span>
+        <div class="notice-text" id="notice-text">
+            * นักเรียนสามารถกำหนดชื่อและรหัสผ่านเพื่อบันทึกคะแนนการตอบคำถามได้ด้วยตนเอง
         </div>
     </div>
 
     <script>
-        async function doLogin() {
-            const u = document.getElementById('username').value;
-            const p = document.getElementById('password').value;
-            const errorBadge = document.getElementById('error-badge');
+        function switchRole(role) {
+            document.getElementById('selected-role').value = role;
+            
+            const btnStudent = document.getElementById('btn-student');
+            const btnTeacher = document.getElementById('btn-teacher');
+            const studentFields = document.getElementById('student-fields');
+            const teacherFields = document.getElementById('teacher-fields');
+            const submitBtn = document.getElementById('submit-btn-text');
+            const subtitleText = document.getElementById('subtitle-text');
+            const noticeText = document.getElementById('notice-text');
 
-            try {
-                const res = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username: u, password: p })
-                });
+            if (role === 'student') {
+                btnStudent.classList.add('active');
+                btnTeacher.classList.remove('active');
+                studentFields.style.display = 'block';
+                teacherFields.style.display = 'none';
+                
+                document.getElementById('student-name').required = true;
+                document.getElementById('student-pass').required = true;
+                document.getElementById('teacher-user').required = false;
+                document.getElementById('teacher-pass').required = false;
 
-                if (res.ok) {
-                    const data = await res.json();
-                    localStorage.setItem('currentUser', data.username);
-                    window.location.href = '/index.html';
+                submitBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> บันทึกข้อมูล & เข้าสู่หน้า Player';
+                subtitleText.innerText = 'ลงทะเบียน / บันทึกรหัสผ่านนักเรียน';
+                noticeText.innerText = '* รหัสผ่านนี้จะใช้บันทึกคะแนนคำตอบกับปุ่มกด Hardware ESP32';
+            } else {
+                btnTeacher.classList.add('active');
+                btnStudent.classList.remove('active');
+                studentFields.style.display = 'none';
+                teacherFields.style.display = 'block';
+
+                document.getElementById('student-name').required = false;
+                document.getElementById('student-pass').required = false;
+                document.getElementById('teacher-user').required = true;
+                document.getElementById('teacher-pass').required = true;
+
+                submitBtn.innerHTML = '<i class="fa-solid fa-sliders"></i> เข้าสู่หน้า Creator Studio';
+                subtitleText.innerText = 'เข้าสู่ระบบสำหรับครูผู้สอน';
+                noticeText.innerText = '* ระบบสำหรับออกแบบบทเรียน และจัดการโจทย์คำถาม 4 สี';
+            }
+        }
+
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            const role = document.getElementById('selected-role').value;
+
+            if (role === 'student') {
+                const name = document.getElementById('student-name').value.trim();
+                const pass = document.getElementById('student-pass').value.trim();
+
+                if (!name || !pass) return alert('กรุณากรอกชื่อและตั้งรหัสผ่าน');
+
+                // บันทึกข้อมูลนักเรียนลง LocalStorage สำหรับนำไปใช้บันทึกคะแนนฝั่ง Player
+                localStorage.setItem('warp_user_role', 'student');
+                localStorage.setItem('warp_student_name', name);
+                localStorage.setItem('warp_student_pass', pass);
+
+                alert(`ยินดีต้อนรับ ${name}! บันทึกรหัสผ่านเรียบร้อยแล้ว`);
+                window.location.href = 'player.html';
+
+            } else {
+                const user = document.getElementById('teacher-user').value.trim();
+                const pass = document.getElementById('teacher-pass').value.trim();
+
+                // ตรวจสอบเข้าสู่ระบบฝั่งครู
+                if (user === 'admin' || user === 'teacher') {
+                    localStorage.setItem('warp_user_role', 'teacher');
+                    localStorage.setItem('warp_teacher_name', user);
+                    window.location.href = 'index.html';
                 } else {
-                    errorBadge.style.display = 'flex';
+                    alert('ชื่อผู้ใช้หรือรหัสผ่านครูผู้สอนไม่ถูกต้อง (ใช้ admin ได้ครับ)');
                 }
-            } catch (err) {
-                console.error("Login failed:", err);
-                errorBadge.style.display = 'flex';
             }
         }
     </script>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WARP Dashboard - สรุปผลคะแนนนักเรียน</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        (function() {
+            const role = localStorage.getItem('warp_user_role');
+            if (!role || role !== 'admin') {
+                alert('หน้านี้สำหรับครูและผู้ดูแลระบบเท่านั้น');
+                window.location.href = 'login.html';
+            }
+        })();
+    </script>
+
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --accent-purple: #6366f1;
+            --accent-purple-light: #eef2ff;
+            --accent-blue: #2563eb;
+            --accent-emerald: #10b981;
+            --accent-rose: #f43f5e;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Prompt', 'Inter', sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-primary); min-height: 100vh; }
+
+        header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.75rem 1.75rem;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .container { max-width: 1300px; margin: 2rem auto; padding: 0 1.5rem; }
+        
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.85rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-icon {
+            width: 48px; height: 48px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { padding: 0.85rem 1rem; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.88rem; }
+        th { background: #f8fafc; font-weight: 600; color: var(--text-secondary); }
+
+        .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
+        .badge-success { background: #d1fae5; color: #047857; }
+        .badge-danger { background: #ffe4e6; color: #be123c; }
+        .badge-info { background: #e0f2fe; color: #0369a1; }
+
+        .btn { padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none; font-size: 0.85rem; font-weight: 500; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 0.4rem; }
+        .btn-outline { border: 1px solid var(--border-color); background: #fff; color: var(--text-primary); }
+        .btn-outline:hover { background: #f1f5f9; }
+        .btn-primary { background: var(--accent-purple); color: white; }
+        .btn-rose { background: var(--accent-rose); color: white; }
+
+        /* Modal Details Overlay */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            display: none; align-items: center; justify-content: center;
+            z-index: 1000; padding: 20px;
+        }
+
+        .modal-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            max-width: 850px; width: 100%;
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            max-height: 85vh;
+            display: flex; flex-direction: column;
+        }
+
+        .modal-header {
+            background: #f8fafc; color: var(--text-primary);
+            padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-body { padding: 20px; overflow-y: auto; flex: 1; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+            <i class="fa-solid fa-chart-column" style="font-size:1.5rem; color:var(--accent-purple);"></i>
+            <span style="font-size:1.25rem; font-weight:700;">WARP Admin Analytics</span>
+        </div>
+        <div>
+            <a href="index.html" class="btn btn-outline"><i class="fa-solid fa-pen-to-square"></i> หน้า Creator</a>
+            <a href="player.html" class="btn btn-outline"><i class="fa-solid fa-play"></i> หน้า Player</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Summary Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#eef2ff; color:var(--accent-purple);"><i class="fa-solid fa-users"></i></div>
+                <div>
+                    <div style="font-size:0.8rem; color:var(--text-secondary);">นักเรียนทั้งหมด</div>
+                    <div style="font-size:1.3rem; font-weight:700;" id="totalStudentsCount">0 คน</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#eff6ff; color:var(--accent-blue);"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div>
+                    <div style="font-size:0.8rem; color:var(--text-secondary);">บทเรียนที่มีผู้เรียน</div>
+                    <div style="font-size:1.3rem; font-weight:700;" id="totalLessonsCount">0 บทเรียน</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#ecfdf5; color:var(--accent-emerald);"><i class="fa-solid fa-list-check"></i></div>
+                <div>
+                    <div style="font-size:0.8rem; color:var(--text-secondary);">การตอบโต้ตอบทั้งหมด</div>
+                    <div style="font-size:1.3rem; font-weight:700;" id="totalResponsesCount">0 ครั้ง</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Overview Table -->
+        <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                <h2><i class="fa-solid fa-user-graduate" style="color:var(--accent-purple);"></i> รายงานสรุปคะแนนรายบุคคล (Student Summary)</h2>
+                <button class="btn btn-rose" onclick="clearLogs()"><i class="fa-solid fa-trash"></i> ล้างประวัติทั้งหมด</button>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ชื่อ - นามสกุล นักเรียน</th>
+                        <th>บทเรียนล่าสุด</th>
+                        <th>จำนวนข้อที่ตอบ</th>
+                        <th>ตอบถูกต้อง</th>
+                        <th>คิดเป็นคะแนน</th>
+                        <th>ทำรายการล่าสุด</th>
+                        <th>การจัดการ</th>
+                    </tr>
+                </thead>
+                <tbody id="studentSummaryTableBody">
+                    <tr><td colspan="7" style="text-align:center; color:var(--text-secondary);">ยังไม่มีข้อมูลผู้เรียนทำแบบทดสอบ</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal Detail Logs View -->
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div>
+                    <h3 style="font-size:1.05rem;" id="modalStudentName">รายละเอียดการตอบของนักเรียน</h3>
+                    <div style="font-size:0.78rem; color:var(--text-secondary);" id="modalLessonName">บทเรียน: -</div>
+                </div>
+                <i class="fa-solid fa-xmark" style="cursor:pointer; font-size:1.2rem;" onclick="closeModal()"></i>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>เวลา</th>
+                            <th>เหตุการณ์ (Event)</th>
+                            <th>คำตอบที่เลือก</th>
+                            <th>ผลการตอบ</th>
+                            <th>สัญญาณ ESP32</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modalLogsTableBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let rawLogs = [];
+
+        function loadDashboardData() {
+            rawLogs = JSON.parse(localStorage.getItem('warp_student_logs') || '[]');
+            
+            const summaryTable = document.getElementById('studentSummaryTableBody');
+            
+            if (rawLogs.length === 0) {
+                summaryTable.innerHTML = '<tr><td colspan="7" style="text-align:center; color:var(--text-secondary);">ยังไม่มีข้อมูลผู้เรียนทำแบบทดสอบ</td></tr>';
+                document.getElementById('totalStudentsCount').innerText = "0 คน";
+                document.getElementById('totalLessonsCount').innerText = "0 บทเรียน";
+                document.getElementById('totalResponsesCount').innerText = "0 ครั้ง";
+                return;
+            }
+
+            // จัดกลุ่มข้อมูลแยกรายนักเรียน + บทเรียน (Group by Student & Lesson)
+            const studentMap = {};
+            const uniqueLessons = new Set();
+
+            rawLogs.forEach(log => {
+                const key = `${log.studentName}_${log.lessonName}`;
+                uniqueLessons.add(log.lessonName);
+
+                if (!studentMap[key]) {
+                    studentMap[key] = {
+                        studentName: log.studentName,
+                        lessonName: log.lessonName,
+                        totalAnswered: 0,
+                        correctCount: 0,
+                        lastActive: log.timestamp,
+                        userLogs: []
+                    };
+                }
+
+                studentMap[key].totalAnswered += 1;
+                if (log.isCorrect === true) {
+                    studentMap[key].correctCount += 1;
+                }
+                studentMap[key].userLogs.push(log);
+            });
+
+            const summaryList = Object.values(studentMap);
+
+            document.getElementById('totalStudentsCount').innerText = `${new Set(summaryList.map(s => s.studentName)).size} คน`;
+            document.getElementById('totalLessonsCount').innerText = `${uniqueLessons.size} บทเรียน`;
+            document.getElementById('totalResponsesCount').innerText = `${rawLogs.length} ครั้ง`;
+
+            summaryTable.innerHTML = summaryList.map((st, idx) => {
+                const scorePercent = Math.round((st.correctCount / st.totalAnswered) * 100);
+                let scoreBadgeClass = scorePercent >= 50 ? 'badge-success' : 'badge-danger';
+
+                return `
+                    <tr>
+                        <td><strong>${st.studentName}</strong></td>
+                        <td>${st.lessonName}</td>
+                        <td>${st.totalAnswered} ข้อ</td>
+                        <td><span style="color:var(--accent-emerald); font-weight:700;">${st.correctCount}</span> / ${st.totalAnswered}</td>
+                        <td><span class="badge ${scoreBadgeClass}">${scorePercent}%</span></td>
+                        <td>${st.lastActive}</td>
+                        <td>
+                            <button class="btn btn-outline" style="padding:4px 10px; font-size:0.78rem;" onclick="openStudentDetails('${st.studentName}', '${st.lessonName}')">
+                                <i class="fa-solid fa-magnifying-glass" style="color:var(--accent-purple);"></i> ดูรายละเอียด
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function openStudentDetails(studentName, lessonName) {
+            const studentLogs = rawLogs.filter(l => l.studentName === studentName && l.lessonName === lessonName);
+            
+            document.getElementById('modalStudentName').innerText = `รายละเอียดการตอบ: ${studentName}`;
+            document.getElementById('modalLessonName').innerText = `บทเรียน: ${lessonName}`;
+
+            const tbody = document.getElementById('modalLogsTableBody');
+            tbody.innerHTML = studentLogs.slice().reverse().map(log => {
+                let statusBadge = '';
+                if (log.isCorrect === true) {
+                    statusBadge = '<span class="badge badge-success"><i class="fa-solid fa-check"></i> ถูกต้อง</span>';
+                } else if (log.isCorrect === false) {
+                    statusBadge = '<span class="badge badge-danger"><i class="fa-solid fa-xmark"></i> ตอบผิด</span>';
+                } else {
+                    statusBadge = '<span class="badge badge-info"><i class="fa-solid fa-minus"></i> ไม่ระบุเฉลย</span>';
+                }
+
+                return `
+                    <tr>
+                        <td>${log.timestamp}</td>
+                        <td><strong>${log.eventName}</strong></td>
+                        <td><strong>ข้อ ${log.selectedOption}</strong> (${log.optionText})</td>
+                        <td>${statusBadge}</td>
+                        <td><code style="background:#f1f5f9; padding:2px 6px; border-radius:4px; font-family:monospace;">${log.esp32Signal}</code></td>
+                    </tr>
+                `;
+            }).join('');
+
+            document.getElementById('detailModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').style.display = 'none';
+        }
+
+        function clearLogs() {
+            if (confirm("ต้องการลบประวัติการตอบคำถามทั้งหมดหรือไม่?")) {
+                localStorage.removeItem('warp_student_logs');
+                loadDashboardData();
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', loadDashboardData);
+    </script>
+</body>
+</html>

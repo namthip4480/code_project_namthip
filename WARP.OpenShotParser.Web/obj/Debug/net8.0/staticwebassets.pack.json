@@ -13,12 +13,20 @@
       "PackagePath": "staticwebassets\\Test3_for_app.mp4"
     },
     {
+      "Id": "C:\\Users\\namthip411\\code_project_namthip\\WARP.OpenShotParser.Web\\wwwroot\\dashboard.html",
+      "PackagePath": "staticwebassets\\dashboard.html"
+    },
+    {
       "Id": "C:\\Users\\namthip411\\code_project_namthip\\WARP.OpenShotParser.Web\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },
     {
       "Id": "C:\\Users\\namthip411\\code_project_namthip\\WARP.OpenShotParser.Web\\wwwroot\\login.html",
       "PackagePath": "staticwebassets\\login.html"
+    },
+    {
+      "Id": "C:\\Users\\namthip411\\code_project_namthip\\WARP.OpenShotParser.Web\\wwwroot\\player.html",
+      "PackagePath": "staticwebassets\\player.html"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.WARP.OpenShotParser.Web.Microsoft.AspNetCore.StaticWebAssets.props",

@@ -169,3 +169,4 @@ C:\Users\namthip411\code_project_namthip\WARP.OpenShotParser.Web\obj\Debug\net8.
 C:\Users\namthip411\code_project_namthip\WARP.OpenShotParser.Web\obj\Debug\net8.0\WARP.OpenShotParser.Web.pdb
 C:\Users\namthip411\code_project_namthip\WARP.OpenShotParser.Web\obj\Debug\net8.0\WARP.OpenShotParser.Web.genruntimeconfig.cache
 C:\Users\namthip411\code_project_namthip\WARP.OpenShotParser.Web\obj\Debug\net8.0\ref\WARP.OpenShotParser.Web.dll
+C:\Users\namthip411\code_project_namthip\WARP.OpenShotParser.Web\obj\Debug\net8.0\WARP.OpenShotParser.Web.sourcelink.json

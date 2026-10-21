@@ -76,3 +76,56 @@ public class TimelineEventDto
     [JsonPropertyName("payload")]
     public Dictionary<string, string> Payload { get; set; } = new();
 }
+    public class StudentLogModel
+    {
+        [JsonPropertyName("id")]
+        public long Id { get; set; }
+
+        [JsonPropertyName("studentName")]
+        public string StudentName { get; set; } = string.Empty;
+
+        [JsonPropertyName("userRole")]
+        public string UserRole { get; set; } = "student";
+
+        [JsonPropertyName("lessonName")]
+        public string LessonName { get; set; } = string.Empty;
+
+        [JsonPropertyName("eventId")]
+        public int EventId { get; set; }
+
+        [JsonPropertyName("eventName")]
+        public string EventName { get; set; } = string.Empty;
+
+        [JsonPropertyName("question")]
+        public string Question { get; set; } = string.Empty;
+
+        [JsonPropertyName("selectedOption")]
+        public string SelectedOption { get; set; } = string.Empty;
+
+        [JsonPropertyName("optionText")]
+        public string OptionText { get; set; } = string.Empty;
+
+        [JsonPropertyName("correctOption")]
+        public string CorrectOption { get; set; } = string.Empty;
+
+        [JsonPropertyName("isCorrect")]
+        public bool? IsCorrect { get; set; }
+
+        [JsonPropertyName("esp32Signal")]
+        public string Esp32Signal { get; set; } = string.Empty;
+
+        [JsonPropertyName("timestamp")]
+        public string Timestamp { get; set; } = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+    }
+
+    public class Esp32PayloadRequest
+    {
+        [JsonPropertyName("deviceId")]
+        public string DeviceId { get; set; } = string.Empty;
+
+        [JsonPropertyName("signalCode")]
+        public string SignalCode { get; set; } = string.Empty;
+
+        [JsonPropertyName("studentName")]
+        public string StudentName { get; set; } = string.Empty;
+    }

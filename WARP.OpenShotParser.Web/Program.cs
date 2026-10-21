@@ -5,7 +5,7 @@ using System.Text.Json.Nodes;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ต่อฐานข้อมูล SQLite
+// ฐานข้อมูล SQLite
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=warp_app.db"));
 
@@ -14,16 +14,18 @@ var app = builder.Build();
 // สร้าง DB และ User Admin อัตโนมัติ
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.EnsureCreated();
-    if (!db.Users.Any())
+    try
     {
-        db.Users.Add(new User { Username = "Admin", Password = "1234" });
-        db.SaveChanges();
+        var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        db.Database.EnsureCreated();
+    }
+    catch (Exception dbEx)
+    {
+        Console.WriteLine($"[DB INIT WARN] {dbEx.Message}");
     }
 }
 
-// ตั้งค่า Content-Type
+// ตั้งค่า Content-Type รองรับ MP4 และ JSON
 var provider = new FileExtensionContentTypeProvider();
 provider.Mappings[".mp4"] = "video/mp4";
 provider.Mappings[".json"] = "application/json";
@@ -35,7 +37,7 @@ app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });
 // API ENDPOINTS
 // ==========================================
 
-// 1. API ดึงข้อมูลไทม์ไลน์
+// 1. API ดึงข้อมูลไทม์ไลน์บทเรียน
 app.MapGet("/api/timeline/{fileName}", (string fileName) =>
 {
     var cleanName = fileName.Replace(".json", "", StringComparison.OrdinalIgnoreCase);
@@ -44,107 +46,150 @@ app.MapGet("/api/timeline/{fileName}", (string fileName) =>
     {
         Path.Combine(Directory.GetCurrentDirectory(), "SampleData", "Output_JSON", $"{cleanName}.json"),
         Path.Combine(Directory.GetCurrentDirectory(), "SampleData", $"{cleanName}.json"),
-        Path.Combine(Directory.GetCurrentDirectory(), "..", "SampleData", "Output_JSON", $"{cleanName}.json")
+        Path.Combine(Directory.GetCurrentDirectory(), "..", "SampleData", "Output_JSON", $"{cleanName}.json"),
+        Path.Combine(Directory.GetCurrentDirectory(), "SampleData", "Output_JSON", $"{cleanName}_timeline_output.json")
     };
 
     string? targetPath = possiblePaths.FirstOrDefault(File.Exists);
-    if (targetPath == null) return Results.NotFound(new { error = $"ไม่พบไฟล์ JSON ที่: {cleanName}" });
+    if (targetPath == null) return Results.NotFound(new { error = $"ไม่พบไฟล์ JSON สำหรับ: {cleanName}" });
 
-    var jsonContent = File.ReadAllText(targetPath);
-    var jsonNode = JsonNode.Parse(jsonContent);
-
-    if (jsonNode?["events"] != null && jsonNode?["metadata"] != null)
-    {
-        return Results.Content(jsonContent, "application/json");
-    }
-
-    // แปลงโครงสร้างพื้นฐาน
-    var eventsList = new List<object>();
-    int eventId = 1;
-    double maxDuration = 0;
-
-    Action<JsonNode?> processClips = (clipsNode) =>
-    {
-        if (clipsNode is JsonArray array)
-        {
-            foreach (var item in array)
-            {
-                if (item == null) continue;
-                
-                double start = item["startSec"]?.GetValue<double>() ?? item["start"]?.GetValue<double>() ?? 0;
-                double end = item["endSec"]?.GetValue<double>() ?? item["end"]?.GetValue<double>() ?? (start + 3.0);
-                double dur = item["durationSec"]?.GetValue<double>() ?? item["duration"]?.GetValue<double>() ?? (end - start);
-                string name = item["name"]?.GetValue<string>() ?? item["event_name"]?.GetValue<string>() ?? $"Event_{eventId}";
-                
-                string type = item["type"]?.GetValue<string>() ?? (name.ToLower().Contains("transition") || name.ToLower().Contains("fade") ? "transition" : "clip");
-                string action = item["action"]?.GetValue<string>() ?? (type == "transition" || name.ToLower().Contains("fade") ? "TRIGGER_TRANSITION" : "PLAY_MEDIA");
-
-                if (end > maxDuration) maxDuration = end;
-
-                eventsList.Add(new
-                {
-                    id = eventId++,
-                    type = type,
-                    name = name,
-                    startSec = start,
-                    endSec = end,
-                    durationSec = dur,
-                    action = action,
-                    question = item["question"]?.GetValue<string>() ?? null,
-                    options = item["options"] ?? null
-                });
-            }
-        }
-    };
-
-    if (jsonNode?["events"] != null) processClips(jsonNode["events"]);
-    if (jsonNode?["clips"] != null) processClips(jsonNode["clips"]);
-
-    var formattedResponse = new
-    {
-        metadata = new
-        {
-            projectName = jsonNode?["project_name"]?.GetValue<string>() ?? cleanName,
-            fps = jsonNode?["fps"]?.GetValue<int>() ?? 30,
-            totalDurationSec = Math.Round(maxDuration, 2),
-            totalEvents = eventsList.Count
-        },
-        events = eventsList
-    };
-
-    return Results.Json(formattedResponse);
-});
-
-// 2. API บันทึกและส่งออกแพ็กเกจบทเรียนฉบับสมบูรณ์ (Save & Export Package)
-app.MapPost("/api/save-lesson", async (SaveLessonRequest request, AppDbContext db) =>
-{
     try
     {
-        var outputFolder = Path.Combine(Directory.GetCurrentDirectory(), "SampleData", "Output_JSON");
-        if (!Directory.Exists(outputFolder)) Directory.CreateDirectory(outputFolder);
+        var jsonContent = File.ReadAllText(targetPath);
+        var jsonNode = JsonNode.Parse(jsonContent);
 
-        var savePath = Path.Combine(outputFolder, $"{request.FileName}.json");
-        var jsonOptions = new JsonSerializerOptions { WriteIndented = true };
-        
-        string updatedJson = JsonSerializer.Serialize(request.LessonData, jsonOptions);
-        await File.WriteAllTextAsync(savePath, updatedJson);
-
-        // บันทึกลงฐานข้อมูล SQLite
-        db.LessonPackages.Add(new LessonPackage
+        if (jsonNode?["events"] != null && jsonNode?["metadata"] != null)
         {
-            PackageName = request.FileName,
-            JsonPath = savePath,
-            CreatedDate = DateTime.Now
-        });
-        await db.SaveChangesAsync();
+            return Results.Content(jsonContent, "application/json");
+        }
 
-        Console.WriteLine($"[EXPORT SUCCESS] บันทึกแพ็กเกจบทเรียนสมบูรณ์ที่: {savePath}");
-        return Results.Ok(new { status = "Package Exported Successfully", path = savePath });
+        var eventsList = new List<object>();
+        int eventId = 1;
+        double maxDuration = 0;
+
+        Action<JsonNode?> processClips = (clipsNode) =>
+        {
+            if (clipsNode is JsonArray array)
+            {
+                foreach (var item in array)
+                {
+                    if (item == null) continue;
+                    
+                    double start = item["startSec"]?.GetValue<double>() ?? item["start"]?.GetValue<double>() ?? 0;
+                    double end = item["endSec"]?.GetValue<double>() ?? item["end"]?.GetValue<double>() ?? (start + 3.0);
+                    string name = item["name"]?.GetValue<string>() ?? item["event_name"]?.GetValue<string>() ?? $"Event_{eventId}";
+                    string type = (name.ToLower().Contains("transition") || name.ToLower().Contains("fade")) ? "transition" : "clip";
+                    string action = type == "transition" ? "TRIGGER_TRANSITION" : "PLAY_MEDIA";
+
+                    if (end > maxDuration) maxDuration = end;
+
+                    eventsList.Add(new
+                    {
+                        id = eventId++,
+                        type = type,
+                        name = name,
+                        startSec = start,
+                        endSec = end,
+                        durationSec = end - start,
+                        action = action,
+                        question = item["question"]?.GetValue<string>() ?? null,
+                        options = item["options"] ?? null
+                    });
+                }
+            }
+        };
+
+        if (jsonNode?["events"] != null) processClips(jsonNode["events"]);
+        if (jsonNode?["clips"] != null) processClips(jsonNode["clips"]);
+
+        var formattedResponse = new
+        {
+            metadata = new
+            {
+                projectName = jsonNode?["project_name"]?.GetValue<string>() ?? cleanName,
+                fps = jsonNode?["fps"]?.GetValue<int>() ?? 30,
+                totalDurationSec = Math.Round(maxDuration, 2),
+                totalEvents = eventsList.Count
+            },
+            events = eventsList
+        };
+
+        return Results.Json(formattedResponse);
     }
     catch (Exception ex)
     {
-        return Results.Problem($"เกิดข้อผิดพลาดในการส่งออก: {ex.Message}");
+        return Results.Problem($"เกิดข้อผิดพลาดในการประมวลผลไฟล์: {ex.Message}");
     }
+});
+
+// 2. API เซฟแพ็กเกจบทเรียนลง Output_JSON (ป้องกัน Database Crash 100%)
+app.MapPost("/api/save-lesson", async (HttpContext context, AppDbContext db) =>
+{
+    try
+    {
+        using var reader = new StreamReader(context.Request.Body);
+        var bodyText = await reader.ReadToEndAsync();
+        var jsonDoc = JsonNode.Parse(bodyText);
+
+        string fileName = jsonDoc?["fileName"]?.GetValue<string>() ?? $"Package_{DateTime.Now:yyyyMMdd_HHmmss}";
+        var lessonData = jsonDoc?["lessonData"];
+
+        if (lessonData == null) return Results.BadRequest(new { error = "ข้อมูลเป็นค่าว่าง" });
+
+        // สร้างโฟลเดอร์สำหรับเก็บไฟล์
+        var outputFolder = Path.Combine(Directory.GetCurrentDirectory(), "SampleData", "Output_JSON");
+        if (!Directory.Exists(outputFolder)) Directory.CreateDirectory(outputFolder);
+
+        var cleanFileName = fileName.Replace(".json", "", StringComparison.OrdinalIgnoreCase);
+        var savePath = Path.Combine(outputFolder, $"{cleanFileName}.json");
+
+        var jsonOptions = new JsonSerializerOptions { WriteIndented = true };
+        string updatedJson = JsonSerializer.Serialize(lessonData, jsonOptions);
+        await File.WriteAllTextAsync(savePath, updatedJson);
+
+        // เซฟลง SQLite แบบเบาบาง (ถ้าล้มเหลวก็จะไม่กระทบการเซฟไฟล์)
+        try
+        {
+            var existing = await db.LessonPackages.FirstOrDefaultAsync(p => p.PackageName == cleanFileName);
+            if (existing == null)
+            {
+                db.LessonPackages.Add(new LessonPackage { PackageName = cleanFileName, JsonPath = savePath, CreatedDate = DateTime.Now });
+            }
+            else
+            {
+                existing.JsonPath = savePath;
+                existing.CreatedDate = DateTime.Now;
+            }
+            await db.SaveChangesAsync();
+        }
+        catch (Exception dbEx)
+        {
+            Console.WriteLine($"[DB WARN Ignored] บันทึกไฟล์ JSON เรียบร้อยแล้ว (DB log: {dbEx.Message})");
+        }
+
+        Console.WriteLine($"[EXPORT SUCCESS] บันทึกแพ็กเกจบทเรียนเรียบร้อยที่: {savePath}");
+        return Results.Ok(new { status = "Success", path = savePath, fileName = cleanFileName });
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[EXPORT ERROR] {ex.Message}");
+        return Results.Problem($"เกิดข้อผิดพลาด: {ex.Message}");
+    }
+});
+
+// 3. API ล็อกทางเลือกนักเรียน (เตรียมส่งสัญญาณ ESP32)
+app.MapPost("/api/log-choice", async (UserChoiceLog log, AppDbContext db) =>
+{
+    try
+    {
+        log.Timestamp = DateTime.Now;
+        db.UserChoiceLogs.Add(log);
+        await db.SaveChangesAsync();
+    }
+    catch { }
+
+    Console.WriteLine($"[ESP32 DISPATCH] Student Choice: {log.Choice} | Signal Payload: {log.SignalPayload}");
+    return Results.Ok(new { status = "Dispatched", payload = log.SignalPayload });
 });
 
 app.Run();
@@ -152,19 +197,6 @@ app.Run();
 // ==========================================
 // MODELS
 // ==========================================
-public class User
-{
-    public int Id { get; set; }
-    public string Username { get; set; } = string.Empty;
-    public string Password { get; set; } = string.Empty;
-}
-
-public class SaveLessonRequest
-{
-    public string FileName { get; set; } = string.Empty;
-    public object LessonData { get; set; } = new();
-}
-
 public class LessonPackage
 {
     public int Id { get; set; }
@@ -173,9 +205,20 @@ public class LessonPackage
     public DateTime CreatedDate { get; set; } = DateTime.Now;
 }
 
+public class UserChoiceLog
+{
+    public int Id { get; set; }
+    public string Username { get; set; } = string.Empty;
+    public string EventName { get; set; } = string.Empty;
+    public string Choice { get; set; } = string.Empty;
+    public string SignalPayload { get; set; } = string.Empty;
+    public string VideoFile { get; set; } = string.Empty;
+    public DateTime Timestamp { get; set; } = DateTime.Now;
+}
+
 public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-    public DbSet<User> Users => Set<User>();
     public DbSet<LessonPackage> LessonPackages => Set<LessonPackage>();
+    public DbSet<UserChoiceLog> UserChoiceLogs => Set<UserChoiceLog>();
 }

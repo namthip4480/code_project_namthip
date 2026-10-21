@@ -21,3 +21,4 @@ C:\Users\namthip411\code_project_namthip\WARP.OpenShotParser\obj\Debug\net8.0\WA
 C:\Users\namthip411\code_project_namthip\WARP.OpenShotParser\obj\Debug\net8.0\refint\WARP.OpenShotParser.dll
 C:\Users\namthip411\code_project_namthip\WARP.OpenShotParser\obj\Debug\net8.0\WARP.OpenShotParser.pdb
 C:\Users\namthip411\code_project_namthip\WARP.OpenShotParser\obj\Debug\net8.0\ref\WARP.OpenShotParser.dll
+C:\Users\namthip411\code_project_namthip\WARP.OpenShotParser\obj\Debug\net8.0\WARP.OpenShotParser.sourcelink.json
